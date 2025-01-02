@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "Proyecto_tapones",
+			"path": "."
+		},
+		{
+			"name": "imagenes_tapon",
+			"path": "../../Descargas/imagenes_tapon"
+		}
+	],
+	"settings": {}
+}
