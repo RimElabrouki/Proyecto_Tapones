@@ -101,17 +101,6 @@ Este proyecto está bajo la **Licencia MIT**. Puedes consultar los detalles de l
 
 ---
 
-## 📧 **Contacto** 👨‍💻
-
-Desarrollado por **[Tu Nombre]**. Si tienes alguna pregunta, sugerencia o comentario, no dudes en ponerte en contacto conmigo:
-
-- ✉️ Correo electrónico: [tu-email@dominio.com]
-- 🐦 Twitter: [@tuTwitter]
-
-¡Gracias por usar el proyecto! 😊
-
----
-
 ## 📸 **Ejemplos de Imágenes Procesadas** 🖼️
 
 Aquí tienes algunos ejemplos de cómo se verán las imágenes después de la detección:
