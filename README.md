@@ -8,9 +8,9 @@
 
 -  **Detección Multicolor**: Identifica tapones de distintos colores utilizando rangos ajustados en el espacio de color HSV.
 -  **Mejora de Iluminación**: Utiliza el algoritmo **CLAHE** (Contrast Limited Adaptive Histogram Equalization) para mejorar el contraste y visibilidad en las imágenes.
--  **Filtrado por Área**: Elimina tapones demasiado pequeños para evitar falsos positivos, garantizando una detección precisa.
+-  **Filtrado por Área**: Elimina tapones demasiado pequeños para evitar falsos positivos, garantizando una detección precisa.💡
 -  **Segmentación de Imágenes**: Crea imágenes segmentadas donde los tapones se destacan para un análisis más detallado.
--  **Visualización**: Muestra los resultados con contornos, áreas y colores de tapones identificados directamente sobre la imagen.
+-  **Visualización**: Muestra los resultados con contornos, áreas y colores de tapones identificados directamente sobre la imagen.👁️
 -  **Configuración Personalizada**: Ajusta parámetros como rangos de colores y directorios de entrada/salida según tus necesidades.
 
 ---
@@ -95,7 +95,7 @@ Si encuentras un error o deseas añadir nuevas funcionalidades, no dudes en **ab
 
 ---
 
-## 📄 **Licencia** 📜
+## **Licencia** 📜
 
 Este proyecto está bajo la **Licencia MIT**. Puedes consultar los detalles de la licencia en el archivo [LICENSE](LICENSE).
 
@@ -109,5 +109,3 @@ Aquí tienes algunos ejemplos de cómo se verán las imágenes después de la de
 ![Ejemplo de imagen 2](imagenes_tapon_detectados/contornos_imagen2.jpg)
 
 ---
-
-**¡Haz que tus proyectos de procesamiento de imágenes sean aún más impresionantes!** 🔥🚀
