@@ -1,21 +1,21 @@
-# 🎯 **Detector de Tapones Multicolor** 🌈
+# 🎯 **Detector de Tapones Multicolor** 
 
-¡Bienvenido al **Detector de Tapones Multicolor**! Este proyecto utiliza técnicas de procesamiento de imágenes con **OpenCV** para detectar y clasificar tapones en imágenes 📸, ¡y lo hace de manera rápida, precisa y colorida! 🎨✨
-
----
-
-## 🚀 **Características** 🛠️
-
-- 🌈 **Detección Multicolor**: Identifica tapones de distintos colores utilizando rangos ajustados en el espacio de color HSV.
-- 💡 **Mejora de Iluminación**: Utiliza el algoritmo **CLAHE** (Contrast Limited Adaptive Histogram Equalization) para mejorar el contraste y visibilidad en las imágenes.
-- 🔍 **Filtrado por Área**: Elimina tapones demasiado pequeños para evitar falsos positivos, garantizando una detección precisa.
-- 📷 **Segmentación de Imágenes**: Crea imágenes segmentadas donde los tapones se destacan para un análisis más detallado.
-- 👁️ **Visualización**: Muestra los resultados con contornos, áreas y colores de tapones identificados directamente sobre la imagen.
-- ⚙️ **Configuración Personalizada**: Ajusta parámetros como rangos de colores y directorios de entrada/salida según tus necesidades.
+¡Bienvenido al **Detector de Tapones Multicolor**! Este proyecto utiliza técnicas de procesamiento de imágenes con **OpenCV** para detectar y clasificar tapones en imágenes 📸, ¡y lo hace de manera rápida, precisa y colorida! 
 
 ---
 
-## 📦 **Requisitos** 🛠️
+##  **Características** 🛠️
+
+-  **Detección Multicolor**: Identifica tapones de distintos colores utilizando rangos ajustados en el espacio de color HSV.
+-  **Mejora de Iluminación**: Utiliza el algoritmo **CLAHE** (Contrast Limited Adaptive Histogram Equalization) para mejorar el contraste y visibilidad en las imágenes.
+-  **Filtrado por Área**: Elimina tapones demasiado pequeños para evitar falsos positivos, garantizando una detección precisa.
+-  **Segmentación de Imágenes**: Crea imágenes segmentadas donde los tapones se destacan para un análisis más detallado.
+-  **Visualización**: Muestra los resultados con contornos, áreas y colores de tapones identificados directamente sobre la imagen.
+-  **Configuración Personalizada**: Ajusta parámetros como rangos de colores y directorios de entrada/salida según tus necesidades.
+
+---
+
+## 📦 **Requisitos** 
 
 Para que este proyecto funcione correctamente, necesitas instalar algunas dependencias:
 
@@ -71,7 +71,7 @@ Sigue estos pasos para instalar y configurar el proyecto:
 
 ---
 
-## 🌈 **Colores Detectados** 🎨
+## **Colores Detectados** 🎨
 
 Este proyecto puede identificar los siguientes colores:
 
