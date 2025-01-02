@@ -105,7 +105,7 @@ Este proyecto está bajo la **Licencia MIT**. Puedes consultar los detalles de l
 
 Aquí tienes algunos ejemplos de cómo se verán las imágenes después de la detección:
 
-![Ejemplo de imagen 1](imagenes_tapon_detectados/contornos_imagen1.jpg)
-![Ejemplo de imagen 2](imagenes_tapon_detectados/contornos_imagen2.jpg)
+![Ejemplo de imagen 1](imagenes_tapon_detectados/contornos_1.jpg)
+![Ejemplo de imagen 2](imagenes_tapon_detectados/contornos_5.jpg)
 
 ---
