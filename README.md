@@ -4,7 +4,8 @@
 
 ---
 
-##  **Características** 🛠️
+##  **Características** 🛠️![images](https://github.com/user-attachments/assets/59f4e656-a8fc-49d1-9930-60436f9af517)
+
 
 -  **Detección Multicolor**: Identifica tapones de distintos colores utilizando rangos ajustados en el espacio de color HSV.
 -  **Mejora de Iluminación**: Utiliza el algoritmo **CLAHE** (Contrast Limited Adaptive Histogram Equalization) para mejorar el contraste y visibilidad en las imágenes.
