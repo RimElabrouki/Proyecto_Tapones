@@ -2,7 +2,7 @@
 
 ¡Bienvenido al **Detector de Tapones Multicolor**! Este proyecto utiliza técnicas de procesamiento de imágenes con **OpenCV** para detectar y clasificar tapones en imágenes 📸, ¡y lo hace de manera rápida, precisa y colorida! 
 
-                            ![images](https://github.com/user-attachments/assets/3307b7f0-303b-4ca0-a8fb-5531ccacbd04)
+  ![images](https://github.com/user-attachments/assets/3307b7f0-303b-4ca0-a8fb-5531ccacbd04)
 
 ---
 ##  **Características** 🛠️
