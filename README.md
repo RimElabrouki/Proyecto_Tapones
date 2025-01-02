@@ -1,30 +1,33 @@
-# ** Detector de Tapones Multicolor 🎯 **
+# 🎯 **Detector de Tapones Multicolor** 🌈
 
-¡Bienvenido al **Detector de Tapones Multicolor**!  Este proyecto usa procesamiento de imágenes con **OpenCV** para detectar y clasificar tapones en imágenes 📸, ¡y lo hace de manera rápida y precisa! 🎯
+¡Bienvenido al **Detector de Tapones Multicolor**! Este proyecto utiliza técnicas de procesamiento de imágenes con **OpenCV** para detectar y clasificar tapones en imágenes 📸, ¡y lo hace de manera rápida, precisa y colorida! 🎨✨
 
-## ** Características** 
-- **Detección Multicolor**: Detecta tapones de diferentes colores usando rangos definidos en HSV. 🌈
-- **Mejora de Iluminación**: ¡Tus imágenes siempre perfectas! Usa CLAHE para mejorar el contraste. 💡
-- **Filtrado por Área**: Filtra los tapones que son demasiado pequeños para evitar falsos positivos. 🔍
-- **Segmentación de Imágenes**: Crea imágenes segmentadas que resaltan los tapones. 📷
-- **Visualización**: Muestra los resultados con contornos y colores de tapones. 👁️ 
-- **Configuración Personalizada**: Puedes ajustar parámetros como los rangos de colores y directorios de entrada y salida. ⚙️🔧
+---
 
-## **🛠️ Requisitos** 📦
+## 🚀 **Características** 🛠️
 
-Este proyecto necesita algunas bibliotecas para funcionar correctamente:
+- 🌈 **Detección Multicolor**: Identifica tapones de distintos colores utilizando rangos ajustados en el espacio de color HSV.
+- 💡 **Mejora de Iluminación**: Utiliza el algoritmo **CLAHE** (Contrast Limited Adaptive Histogram Equalization) para mejorar el contraste y visibilidad en las imágenes.
+- 🔍 **Filtrado por Área**: Elimina tapones demasiado pequeños para evitar falsos positivos, garantizando una detección precisa.
+- 📷 **Segmentación de Imágenes**: Crea imágenes segmentadas donde los tapones se destacan para un análisis más detallado.
+- 👁️ **Visualización**: Muestra los resultados con contornos, áreas y colores de tapones identificados directamente sobre la imagen.
+- ⚙️ **Configuración Personalizada**: Ajusta parámetros como rangos de colores y directorios de entrada/salida según tus necesidades.
 
-- **OpenCV** (`opencv-python`) 📸
-- **NumPy** (`numpy`) ➗
-- **imutils** (`imutils`) 💻
+---
 
-Instala las dependencias con el siguiente comando:
+## 📦 **Requisitos** 🛠️
 
-```bash
-pip install opencv-python numpy imutils
+Para que este proyecto funcione correctamente, necesitas instalar algunas dependencias:
 
-📥 Instalación 📂
+- **OpenCV** (`opencv-python`) 📸: Para el procesamiento de imágenes.
+- **NumPy** (`numpy`) ➗: Para operaciones matemáticas y manejo de matrices.
+- **imutils** (`imutils`) 💻: Para simplificar operaciones de procesamiento de imágenes.
 
+---
+
+## 📥 **Instalación** 📂
+
+Sigue estos pasos para instalar y configurar el proyecto:
 
 1. **Clona el repositorio**:
 
@@ -38,7 +41,7 @@ pip install opencv-python numpy imutils
     cd DetectorTaponesMulticolor
     ```
 
-3. **Crea un entorno virtual** (opcional pero recomendado):
+3. **Crea un entorno virtual** (opcional, pero recomendado):
 
     ```bash
     python -m venv venv
@@ -53,9 +56,10 @@ pip install opencv-python numpy imutils
     ```
 
 ---
-## **Uso del Proyecto** 
 
-1. **Agrega las imágenes que deseas procesar** a la carpeta `imagenes_tapon/`. 📂
+## 🏁 **Uso del Proyecto** 🚀
+
+1. **Añade las imágenes que deseas procesar** en la carpeta `imagenes_tapon/` dentro del proyecto. 📂
    
 2. **Ejecuta el script de detección**:
 
@@ -63,12 +67,13 @@ pip install opencv-python numpy imutils
     python DetectorTaponesMulticolor.py
     ```
 
-3. ¡Listo! Las imágenes procesadas se guardarán en la carpeta `imagenes_tapon_detectados/` con los tapones marcados. 🖼️
+3. ¡Eso es todo! Las imágenes procesadas se guardarán automáticamente en la carpeta `imagenes_tapon_detectados/` con los tapones destacados. 🖼️
 
 ---
+
 ## 🌈 **Colores Detectados** 🎨
 
-Aquí tienes los colores que este detector puede identificar:
+Este proyecto puede identificar los siguientes colores:
 
 - 🔵 **Azul**
 - 🟢 **Verde**
@@ -81,34 +86,35 @@ Aquí tienes los colores que este detector puede identificar:
 - ⚪ **Blanco**
 
 ---
+
 ## 🧑‍💻 **Contribuye al Proyecto** 💡
 
-¿Tienes una idea genial o una mejora para este proyecto? ¡Nos encantaría escucharla! 🎤💬
+¿Tienes una mejora en mente o alguna idea brillante para el proyecto? ¡Nos encantaría escucharte! 🎤💬
 
-Si encuentras algún error o deseas agregar una nueva funcionalidad, por favor, **abre un issue** o **haz un pull request**. Todos los aportes son bienvenidos. 🙌
+Si encuentras un error o deseas añadir nuevas funcionalidades, no dudes en **abrir un issue** o **hacer un pull request**. ¡Todos los aportes son bienvenidos! 🙌
 
 ---
 
 ## 📄 **Licencia** 📜
 
-Este proyecto está bajo la licencia **MIT**. Puedes ver los detalles de la licencia [aquí](LICENSE).
+Este proyecto está bajo la **Licencia MIT**. Puedes consultar los detalles de la licencia en el archivo [LICENSE](LICENSE).
 
 ---
 
 ## 📧 **Contacto** 👨‍💻
 
-Desarrollado por **[Tu Nombre]**. Si tienes alguna pregunta o sugerencia, no dudes en contactarme:
+Desarrollado por **[Tu Nombre]**. Si tienes alguna pregunta, sugerencia o comentario, no dudes en ponerte en contacto conmigo:
 
-- Correo electrónico: [tu-email@dominio.com]
-- Twitter: [@tuTwitter]
+- ✉️ Correo electrónico: [tu-email@dominio.com]
+- 🐦 Twitter: [@tuTwitter]
 
 ¡Gracias por usar el proyecto! 😊
 
 ---
 
-## 📸 **Ejemplos de Imágenes** 🖼️
+## 📸 **Ejemplos de Imágenes Procesadas** 🖼️
 
-Aquí tienes algunos ejemplos de cómo se verán las imágenes procesadas:
+Aquí tienes algunos ejemplos de cómo se verán las imágenes después de la detección:
 
 ![Ejemplo de imagen 1](imagenes_tapon_detectados/contornos_imagen1.jpg)
 ![Ejemplo de imagen 2](imagenes_tapon_detectados/contornos_imagen2.jpg)
