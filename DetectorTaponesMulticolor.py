@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import os
 import imutils
-from visualizador_tapones import VisualizadorTapones  # Importamos la clase de visualización
+
 
 class DetectorTaponesMulticolor:
     """
@@ -17,7 +17,7 @@ class DetectorTaponesMulticolor:
         self.color_names = color_names
         self.min_area = min_area
         self.mostrar_mascaras = mostrar_mascaras
-        self.tapones_detectados = []  # Lista para almacenar los tapones detectados
+        self.tapones_detectados = []
 
         # Crear la carpeta de salida si no existe
         if not os.path.exists(self.output_folder):
@@ -43,9 +43,7 @@ class DetectorTaponesMulticolor:
 
     def detectar_tapon(self, imagen_path):
         """
-        Detecta tapones de múltiples colores en una imagen específica.
-
-        :param imagen_path: Ruta de la imagen a procesar.
+        Detecta tapones de múltiples colores en una imagen específica, aplicando umbrales Otsu y Watershed para la segmentación.
         """
         image = cv2.imread(imagen_path)
         if image is None:
@@ -54,100 +52,98 @@ class DetectorTaponesMulticolor:
 
         # Redimensionar la imagen para un procesamiento más rápido
         image_resized = imutils.resize(image, width=800)
-        # Mejorar la imagen con CLAHE
-        image_clahe = self.aplicar_clahe(image_resized)
+        
         # Convertir la imagen a espacio de color HSV
-        hsv = cv2.cvtColor(image_clahe, cv2.COLOR_BGR2HSV)
+        hsv = cv2.cvtColor(image_resized, cv2.COLOR_BGR2HSV)
 
-        # Aplicar un filtro de suavizado para reducir el ruido
-        hsv = cv2.GaussianBlur(hsv, (5, 5), 0)
-
-        # Inicializar máscara acumulativa
+        # Inicializar máscara final
         final_mask = np.zeros(hsv.shape[:2], dtype=np.uint8)
 
-        # Iterar sobre los rangos de colores
         for i, (lower_bound, upper_bound) in enumerate(self.color_ranges):
             # Crear máscara para el rango de color actual
             mask = cv2.inRange(hsv, np.array(lower_bound), np.array(upper_bound))
-            
+
             # Limpiar la máscara con operaciones morfológicas
             mask_cleaned = cv2.erode(mask, None, iterations=1)
             mask_cleaned = cv2.dilate(mask_cleaned, None, iterations=2)
 
-            # Mostrar la máscara si está habilitado
-            if self.mostrar_mascaras:
-                cv2.imshow(f"Mascara Color {i}", mask_cleaned)
+            # Convertir la máscara a escala de grises
+            gray_mask = cv2.cvtColor(cv2.bitwise_and(image_resized, image_resized, mask=mask_cleaned), cv2.COLOR_BGR2GRAY)
 
-            # Acumular la máscara
+            # Aplicar umbral de Otsu
+            _, otsu_thresh = cv2.threshold(gray_mask, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+            # Encontrar contornos con el umbral de Otsu
+            contours, _ = cv2.findContours(otsu_thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+            # Procesar contornos
+            for contour in contours:
+                if cv2.contourArea(contour) > self.min_area:  # Filtrar por área mínima
+                    cv2.drawContours(image_resized, [contour], -1, (0, 255, 0), 2)  # Dibujar contorno
+
+                    M = cv2.moments(contour)  # Calcular momentos
+                    if M["m00"] != 0:
+                        # Calcular el centro del contorno
+                        cx = int(M["m10"] / M["m00"])
+                        cy = int(M["m01"] / M["m00"])
+                        cv2.circle(image_resized, (cx, cy), 5, (0, 0, 255), -1)
+
+                        # Calcular el área del contorno
+                        area = cv2.contourArea(contour)
+
+                        # Obtener el rectángulo delimitador (bounding box)
+                        x, y, w, h = cv2.boundingRect(contour)
+
+                        # Calcular el aspecto (relación entre ancho y alto)
+                        aspecto = w / float(h) if h != 0 else 0
+
+                        cv2.putText(image_resized, f"{self.color_names[i]} - Area: {area}", (cx - 50, cy - 30), 
+                                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)  # Textos sobre la imagen
+
+                        # Guardar la información del tapón
+                        self.tapones_detectados.append({
+                            'color': self.color_names[i],
+                            'area': area,
+                            'centro': (cx, cy),
+                            'imagen': image_resized,
+                            'posicion': (x, y),
+                            'ancho': w,
+                            'alto': h,
+                            'aspecto': aspecto
+                        })
+
+            # Realizar segmentación con Watershed
+            sure_fg = cv2.erode(mask_cleaned, None, iterations=3)
+            sure_bg = cv2.dilate(mask_cleaned, None, iterations=3)
+            unknown = cv2.subtract(sure_bg, sure_fg)
+
+            # Crear los marcadores para Watershed
+            _, markers = cv2.connectedComponents(sure_fg)
+            markers = markers + 1
+            markers[unknown == 255] = 0
+
+            # Aplicar Watershed
+            markers = cv2.watershed(image_resized, markers)
+            image_resized[markers == -1] = [255, 0, 0]  # Bordes en rojo
+
+            # Acumular la máscara final
             final_mask = cv2.bitwise_or(final_mask, mask_cleaned)
-
-        if self.mostrar_mascaras:
-            cv2.waitKey(0)
-            cv2.destroyAllWindows()
-
-        # Aplicar la máscara acumulativa a la imagen original
-        colormaskHSV_filtered = cv2.bitwise_and(image_resized, image_resized, mask=final_mask)
-
-        # Encontrar contornos en la máscara final
-        contours, _ = cv2.findContours(final_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
-        # Procesar cada contorno
-        for contour in contours:
-            if cv2.contourArea(contour) > self.min_area:  # Filtrar por área mínima
-                cv2.drawContours(image_resized, [contour], -1, (0, 255, 0), 2)  # Dibujar contorno
-
-                M = cv2.moments(contour)  # Calcular momentos
-                if M["m00"] != 0:
-                    # Calcular el centro del contorno
-                    cx = int(M["m10"] / M["m00"])
-                    cy = int(M["m01"] / M["m00"])
-                    cv2.circle(image_resized, (cx, cy), 5, (0, 0, 255), -1)
-
-                    # Identificar el color del tapón por el color predominante en el contorno
-                    color_count = {}
-
-                    # Crear una máscara global para la región del contorno
-                    mask_contour = np.zeros_like(final_mask)
-                    cv2.drawContours(mask_contour, [contour], -1, (255), thickness=cv2.FILLED)
-
-                    # Iterar sobre los rangos de colores
-                    for i, (lower_bound, upper_bound) in enumerate(self.color_ranges):
-                        mask = cv2.inRange(hsv, np.array(lower_bound), np.array(upper_bound))
-                        
-                        # Aplicar la máscara del contorno sobre la máscara de color
-                        mask_color_in_contour = cv2.bitwise_and(mask, mask_contour)
-                        
-                        # Contar cuántos píxeles del color están dentro del contorno
-                        color_count[self.color_names[i]] = cv2.countNonZero(mask_color_in_contour)
-
-                    # Encontrar el color con más píxeles dentro del contorno
-                    color_name = max(color_count, key=color_count.get)
-
-                    # Calcular el área del contorno
-                    area = cv2.contourArea(contour)
-                    cv2.putText(image_resized, f"{color_name} - Area: {area}", (cx - 50, cy - 10), 
-                                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-
-                    # Guardar la información del tapón
-                    self.tapones_detectados.append({
-                        'color': color_name,
-                        'area': area,
-                        'centro': (cx, cy),
-                        'imagen': image_resized,  # Guardar la imagen procesada
-                        'contorno': contour  # Guardar el contorno también
-                    })
 
         # Guardar imágenes procesadas
         filename = os.path.basename(imagen_path)
         output_image_path = os.path.join(self.output_folder, f"contornos_{filename}")
         output_segmented_path = os.path.join(self.output_folder, f"segmentada_{filename}")
 
+        # Guardar la imagen con los contornos dibujados
         cv2.imwrite(output_image_path, image_resized)
-        cv2.imwrite(output_segmented_path, colormaskHSV_filtered)
-
         print(f"Imagen procesada guardada: {output_image_path}")
+
+        # Guardar la máscara segmentada acumulada
+        cv2.imwrite(output_segmented_path, final_mask)
         print(f"Imagen segmentada guardada: {output_segmented_path}")
 
+
+#Metodo para procesar el directorio,procesar la imagenes en el directorio 
     def procesar_directorio(self):
         """
         Procesa todas las imágenes en el directorio de entrada.
@@ -159,8 +155,6 @@ class DetectorTaponesMulticolor:
         for imagen in imagenes:
             imagen_path = os.path.join(self.input_folder, imagen)
             self.detectar_tapon(imagen_path)
-
-
 # Definir rangos de colores (HSV) ajustados
 color_ranges = [
     ([100, 50, 50], [140, 255, 255]),  # Azul
@@ -171,13 +165,59 @@ color_ranges = [
     ([0, 0, 0], [180, 255, 50]),      # Negro
     ([140, 50, 50], [170, 255, 255]), # Rosa
     ([140, 20, 180], [170, 80, 255]), # Rosa claro
-    ([90, 20, 180], [130, 80, 255]),  # Azul claro
-    ([0, 0, 220], [180, 40, 255])     # Blanco ajustado
+    #([90, 20, 180], [130, 80, 255]),  # Azul claro
+    ([90, 10, 180], [130, 60, 255])  # Rango ajustado entre azul claro y blanco ajustado
+    #([0, 0, 220], [180, 40, 255])     # Blanco 
 ]
 
-# Nombres de los colores correspondientes a los rangos HSV
-color_names = ["Azul", "Verde", "Rojo", "Rojo", "Amarillo", "Negro", "Rosa", "Rosa Claro", "Azul Claro", "Blanco"]
+def mostrar_resultados(self):
+    """ Mostrar los resultados detectados de los tapones sobre las imágenes """
+    if not self.tapones_detectados:
+        print("No se detectaron tapones.")
+        return
 
+    # Recorrer cada tapón detectado y mostrar los resultados sobre las imágenes
+    for i, tapon in enumerate(self.tapones_detectados, 1):
+        imagen_resultado = tapon['imagen'].copy()  # Hacer una copia de la imagen para modificarla sin perder la original
+
+        color = tapon.get('color', 'No disponible')
+        area = tapon.get('area', 'No disponible')
+        centro = tapon.get('centro', 'No disponible')
+        posicion = tapon.get('Posición', 'No disponible')
+        ancho = tapon.get('ancho', 'No disponible')
+        alto = tapon.get('alto', 'No disponible')
+        aspecto = tapon.get('aspecto', 'No disponible')
+
+        # Dibujar el texto sobre la imagen para mostrar los resultados
+        cv2.putText(imagen_resultado, f"Tapón {i}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+        cv2.putText(imagen_resultado, f"Color: {color}", (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
+        cv2.putText(imagen_resultado, f"Área: {area}", (10, 90), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
+        cv2.putText(imagen_resultado, f"Centro: {str(centro)}", (10, 120), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
+        cv2.putText(imagen_resultado, f"Pos: {str(posicion)}", (10, 150), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
+        cv2.putText(imagen_resultado, f"Ancho: {ancho}", (10, 180), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
+        cv2.putText(imagen_resultado, f"Alto: {alto}", (10, 210), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
+        cv2.putText(imagen_resultado, f"Aspecto: {aspecto:.2f}", (10, 240), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
+
+        # Dibujar el contorno y el centro del tapón
+        cv2.circle(imagen_resultado, tapon['centro'], 5, (0, 0, 255), -1)  # Centro en rojo
+        cv2.rectangle(imagen_resultado, (tapon['Posición'][0], tapon['Posición'][1]), 
+                      (tapon['Posición'][0] + tapon['ancho'], tapon['Posición'][1] + tapon['alto']), 
+                      (0, 255, 0), 2)  # Rectángulo verde alrededor del tapón
+
+        # Mostrar la imagen con los resultados
+        cv2.imshow(f"Tapón {i} - {color}", imagen_resultado)
+        
+        # Si necesitas guardar las imágenes procesadas con los resultados:
+        output_image_path = os.path.join(self.output_folder, f"resultado_tapon_{i}.png")
+        cv2.imwrite(output_image_path, imagen_resultado)
+        print(f"Imagen resultado guardada: {output_image_path}")
+
+    cv2.waitKey(0)  # Esperar que el usuario cierre la ventana
+    cv2.destroyAllWindows()  # Cerrar todas las ventanas abiertas de OpenCV
+
+
+# Nombres de los colores correspondientes a los rangos HSV
+color_names = ["Azul", "Verde", "Rojo", "Rojo", "Amarillo", "Negro", "Rosa", "Rosa Claro","Blanco"]
 # Rutas de entrada y salida
 input_folder = "imagenes_tapon"
 output_folder = "imagenes_tapon_detectados"
@@ -185,7 +225,3 @@ output_folder = "imagenes_tapon_detectados"
 # Crear instancia de la clase y procesar imágenes
 detector = DetectorTaponesMulticolor(input_folder, output_folder, color_ranges, color_names, min_area=500, mostrar_mascaras=False)
 detector.procesar_directorio()
-
-# Crear instancia de la clase VisualizadorTapones para mostrar los resultados
-visualizador = VisualizadorTapones(detector.tapones_detectados)
-visualizador.mostrar()
