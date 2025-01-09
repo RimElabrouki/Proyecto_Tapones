@@ -187,7 +187,7 @@ def mostrar_resultados(self):
         ancho = tapon.get('ancho', 'No disponible')
         alto = tapon.get('alto', 'No disponible')
         aspecto = tapon.get('aspecto', 'No disponible')
-
+'''
         # Dibujar el texto sobre la imagen para mostrar los resultados
         cv2.putText(imagen_resultado, f"Tapón {i}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
         cv2.putText(imagen_resultado, f"Color: {color}", (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
@@ -197,7 +197,7 @@ def mostrar_resultados(self):
         cv2.putText(imagen_resultado, f"Ancho: {ancho}", (10, 180), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
         cv2.putText(imagen_resultado, f"Alto: {alto}", (10, 210), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
         cv2.putText(imagen_resultado, f"Aspecto: {aspecto:.2f}", (10, 240), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
-
+'''
         # Dibujar el contorno y el centro del tapón
         cv2.circle(imagen_resultado, tapon['centro'], 5, (0, 0, 255), -1)  # Centro en rojo
         cv2.rectangle(imagen_resultado, (tapon['Posición'][0], tapon['Posición'][1]), 
