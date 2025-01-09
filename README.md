@@ -8,12 +8,12 @@
 ##  **Características** 🛠️
 
 
--  **Detección Multicolor: Identificación de tapones de diferentes colores utilizando rangos ajustados en el espacio de color HSV.
--  **Mejora de Iluminación: Aplicación del algoritmo CLAHE (Contrast Limited Adaptive Histogram Equalization) para mejorar el contraste y la visibilidad de la imagen.
--  **Filtrado por Área: Eliminación de tapones demasiado pequeños para evitar falsos positivos, garantizando una detección más precisa.💡
--  **Segmentación de Imágenes: Generación de imágenes segmentadas donde los tapones se destacan, lo que facilita un análisis más detallado.
--  **Visualización: Presentación de los resultados con contornos, áreas y colores de los tapones identificados directamente sobre la imagen.👁️
--  **Configuración Personalizada: Ajuste de parámetros, como los rangos de colores y los directorios de entrada y salida, según las necesidades del usuario.
+-  **Detección Multicolor**: Identificación de tapones de diferentes colores utilizando rangos ajustados en el espacio de color HSV.
+-  **Mejora de Iluminación**: Aplicación del algoritmo CLAHE (Contrast Limited Adaptive Histogram Equalization) para mejorar el contraste y la visibilidad de la imagen.
+-  **Filtrado por Área**: Eliminación de tapones demasiado pequeños para evitar falsos positivos, garantizando una detección más precisa.💡
+-  **Segmentación de Imágenes**: Generación de imágenes segmentadas donde los tapones se destacan, lo que facilita un análisis más detallado.
+-  **Visualización**: Presentación de los resultados con contornos, áreas y colores de los tapones identificados directamente sobre la imagen.👁️
+-  **Configuración Personalizada**: Ajuste de parámetros, como los rangos de colores y los directorios de entrada y salida, según las necesidades del usuario.
 
 ---
 
