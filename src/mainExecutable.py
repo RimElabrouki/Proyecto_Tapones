@@ -1,4 +1,4 @@
-from DetectorTaponesMulticolor import DetectorTaponesMulticolor
+from detectorTaponesMulticolor import DetectorTaponesMulticolor
 
 
 color_ranges = {
@@ -43,7 +43,7 @@ class MainExecutable:
             # Obtener las estimaciones (resultados) luego de procesar las imágenes
             estimaciones = self.detector.get_estimaciones()
 
-            # Guardamos un atributo 'estimaciones_obtenidas' para marcar que ya se procesaron las imágenes
+            # Guardamos un atributo 'estimaciones_obtenidas' pra marcar que ya se procesaron las imágenes
             self.detector.estimaciones_obtenidas = True
 
             print("Estimaciones obtenidas.")
@@ -58,8 +58,8 @@ class MainExecutable:
 # Código principal que ejecuta el flujo de trabajo cuando el script es ejecutado
 if __name__ == "__main__":
     # Definir las rutas de las carpetas de entrada y salida
-    input_folder = "../imagenes_tapon"  # Carpeta donde se encuentran las imágenes de entrada
-    output_folder = "../imagenes_tapon_detectados"  # Carpeta donde se guardarán las imágenes procesadas
+    input_folder = "../files"  # Carpeta donde se encuentran las imágenes de entrada
+    output_folder = "../assets"  # Carpeta donde se guardarán las imágenes procesadas
 
     # Crear una instancia del detector (DetectorTaponesMulticolor) con los parámetros necesarios
     # Esto incluye las carpetas de entrada y salida, los rangos de color y el área mínima de detección

@@ -183,7 +183,7 @@ class DetectorTaponesMulticolor:
         
         # Convertir la lista de resultados a un DataFrame de pandas para tener una tabla organizada
         df_resultados = pd.DataFrame(resultados)
-
+ 
         # Calcular estadísticas adicionales
         resumen_estadisticas = df_resultados.groupby('Color').agg(
             total_detectados=('Color', 'count'),
@@ -221,8 +221,8 @@ color_ranges = {
 }
 
 # Rutas de entrada y salida
-input_folder = "../imagenes_tapon"
-output_folder = "../imagenes_tapon_detectados"
+input_folder = "../files"
+output_folder = "../assets"
 
 # Crear instancia de la clase y procesar imágenes
 detector = DetectorTaponesMulticolor(input_folder, output_folder, color_ranges, min_area=500)
