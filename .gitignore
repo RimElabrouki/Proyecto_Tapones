@@ -13,6 +13,7 @@ env/
 .vscode/
 .idea/
 *.sublime-workspace
+*.code-workspace
 
 # 📜 Archivos de logs y bases de datos
 *.log
