@@ -31,4 +31,4 @@ config.json  # ⚠️ Solo si contiene datos sensibles
 
 # 🗑️ Otros archivos generados
 .DS_Store
-Thumbs.db
+Thumbs.db__pycache__/
