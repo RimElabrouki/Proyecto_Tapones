@@ -1,0 +1,33 @@
+# 🚀 Archivos compilados de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 🔥 Entornos virtuales
+.venv/
+venv/
+env/
+
+# 🛠️ Configuración de editores
+.vscode/
+.idea/
+*.sublime-workspace
+
+# 📜 Archivos de logs y bases de datos
+*.log
+*.sqlite3
+
+# 📂 Dependencias descargadas
+node_modules/
+dist/
+build/
+*.egg-info/
+
+# 🔑 Claves y configuraciones sensibles
+*.env
+config.json  # ⚠️ Solo si contiene datos sensibles
+
+# 🗑️ Otros archivos generados
+.DS_Store
+Thumbs.db
